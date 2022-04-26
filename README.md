@@ -1,3 +1,30 @@
+# Project specific notes
+
+This project is to demonstrate the folder junction link watch bug.
+
+## Description
+Project is setup with two config folders, _config-dev_ and _config-prod_. In the _src_ folder we are creating a junction link to one of those folders. Then on the page we show a value from the config.
+
+Folders:
+```
+config-dev  <--------\
+config-prod          |
+...                  |
+src                  |
+ |-config --junction-/
+ ...
+```
+
+## How to reproduce
+1. To setup the _config_ folder run the `init-link` script (`npm run init-link`).
+   This will create a link in the: _./src/config_ folder to the _./config-dev_ folder.
+2. Start server (`npn start`)
+3. Make minor change in _./config-dev/index.json_ (for example add an additional _!_) to verify that watch work.
+4. Change to prod config using the `switch-to-prod` script (`npn run switch-to-prod`)
+5. Note that text on page hasn't changed, even reloading the page wont update the text.
+6. Make minor change in _./config-prod/index.json_ and notice how watch no longer work.
+7. Make minor change in _./config-dev/index.json_ and note that the changes made in previous step now is pushed to browser.
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
